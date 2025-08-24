@@ -1,0 +1,30 @@
+# Bu dosya, Git versiyon kontrol sisteminin hangi dosyaları ve klasörleri
+# takip etmemesi gerektiğini belirtir.
+
+# İşletim sistemi tarafından oluşturulan dosyalar
+.DS_Store
+Thumbs.db
+
+# Log dosyaları
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Bağımlılıkların bulunduğu klasör
+# Bu klasör 'pnpm install' komutuyla yeniden oluşturulabilir.
+node_modules/
+
+# Ortam değişkenleri dosyası
+# Bu dosya veritabanı şifreleri gibi hassas bilgiler içerir ve
+# KESİNLİKLE versiyon kontrolüne eklenmemelidir.
+.env
+
+# Build çıktıları (Eğer projenizde build adımı varsa)
+dist/
+build/
+
+# IDE ve editör ayar dosyaları
+.vscode/
+.idea/
