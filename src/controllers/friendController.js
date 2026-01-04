@@ -7,15 +7,24 @@ const { User, Friendship, DirectConversation } = db;
 export const searchUsers = async (req, res) => {
   const { username } = req.query;
   const me = req.userId;
-  if (!username) return res.json([]);
-  
+
+  // Temel kural: Kendini hariç tut
+  const whereCondition = {
+    id: { [Op.ne]: me }
+  };
+
+  // Eğer arama terimi varsa filtrele, yoksa hepsini getir
+  if (username) {
+    whereCondition.username = { [Op.iLike]: `%${username}%` };
+  }
+
   const list = await User.findAll({
-    where: { 
-      username: { [Op.iLike]: `%${username}%` },
-      id: { [Op.ne]: me } // Kendini arama sonuçlarından çıkar
-    },
-    attributes: ["id", "username"]
+    where: whereCondition,
+    attributes: ["id", "username"],
+    order: [['username', 'ASC']], // Alfabetik sırala
+    limit: 100 // ÖNEMLİ: Tüm veritabanını çekip sistemi kitlememek için limit koyduk
   });
+  
   res.json(list);
 };
 
